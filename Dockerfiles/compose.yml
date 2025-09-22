@@ -1,0 +1,101 @@
+services:
+  mongodb:
+    image: mongo:8.0.1
+    container_name: mongo-service
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - '/var1/study/mongodb:/data/db'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    networks:
+      - thn
+
+  dense:
+    image: lksmler/dense:PROD
+    container_name: dense-service
+    restart: unless-stopped
+    ports:
+      - '8400:8400'
+    volumes:
+      - '/var1/models/jinaai/jina-embeddings-v3:/model'
+    networks:
+      - thn
+
+  qdrant:
+    image: qdrant/qdrant:v1.15.3
+    container_name: qdrant-service
+    restart: unless-stopped
+    ports:
+      - '6333:6333'
+      - '6334:6334'
+    volumes:
+      - '/var1/study/qdrant:/qdrant/storage:z'
+    ulimits:
+      nofile:
+        soft: 10000
+        hard: 10000
+    environment:
+      QDRANT__SERVICE__API_KEY: ${QDRANT_KEY}
+    networks:
+      - thn
+
+  sparse:
+    image: lksmler/sparse:PROD
+    container_name: sparse-service
+    restart: unless-stopped
+    volumes:
+      - '/var1/models/qdrant/all_miniLM_L6_v2_with_attentions:/model'
+    ports:
+      - '8500:8500'
+    networks:
+      - thn
+
+  ingest:
+    image: lksmler/ingest:PROD
+    container_name: ingest-service
+    restart: unless-stopped
+    ports:
+      - '8900:8900'
+    environment:
+      QDRANT_KEY: ${QDRANT_KEY}
+    networks:
+      - thn
+
+  widget:
+    image: lksmler/widget:PROD
+    container_name: widget-service
+    restart: unless-stopped
+    ports:
+      - '9090:9090'
+    environment:
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      QDRANT_KEY: ${QDRANT_KEY}
+    networks:
+      - thn
+
+  admin:
+    image: lksmler/admin:PROD
+    container_name: admin-service
+    restart: unless-stopped
+    ports:
+      - '9000:9000'
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+      QDRANT_KEY: ${QDRANT_KEY}
+    volumes:
+      - /var1/study/admin_frontend/src/app/utils/config.py:/src/src/app/utils/config.py:ro
+    networks:
+      - thn
+
+networks:
+  thn:
+    name: thn
+    external: true

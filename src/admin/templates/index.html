@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% block title %}KIWI - Admin Panel{% endblock %}
+{% block body %}
+
+    <header>
+        <a href="/dashboard/" class="logo-link" onclick="clearCachedState()">
+            <img src="{{ static_url('images/logo2.png') }}" alt="Logo" class="logo">
+        </a>
+        <h1>Admin Panel</h1>
+        <div id="user-name-container" class="user-name-container">
+            <h2 id="user-name" title="User Name"></h2>
+        </div>
+        <div class="bot-name-container">
+            <h2 id="bot-name" title="Bot Name"></h2>
+            <img src="{{ static_url('icons/pen.svg') }}" alt="Edit" class="pencil-icon" onclick="editBotName()" id="pencil-icon" style="display: none;">
+        </div>
+        {% if is_admin %}
+        <select id="user-select" class="dropdown-menu" onchange="handleUserChange()">
+            <option value="">Select a user...</option>
+        </select>
+        <select id="collection-select" class="dropdown-menu" onchange="handleCollectionChange()" disabled>
+            <option value="">Select a collection...</option>
+        </select>
+        <button onclick="openModal()" class="add-faculty-button">Add Collection</button>
+        <button onclick="openUserModal()" class="add-user-button">Add User</button>
+        {% else %}
+        <select id="collection-select" class="dropdown-menu" onchange="handleCollectionChange()">
+            <option value="">Select a collection...</option>
+        </select>
+        <button onclick="openModal()" class="add-faculty-button">Create Collection</button>
+        {% endif %}
+        <div class="dropdown" id="user-config-dropdown">
+            <button class="dropdown-toggle" onclick="toggleDropdownHere(event)">
+                <img src="{{ static_url('icons/three-dots.svg') }}" alt="Options" class="dots-icon">
+            </button>
+            <div class="dropdown-content">
+                <button onclick="openUserPasswordModal()" class="dropdown-item">Change Password</button>
+                <button onclick="confirmDeleteUser()" class="dropdown-item danger">Delete User</button>
+            </div>
+        </div>
+        <a href="/auth/logout" class="logout-button" onclick="logout(); return true;">
+            <img src="{{ static_url('icons/box-arrow-right.svg') }}" alt="Logout" class="logout-icon">
+        </a>
+    </header>
+
+    <div id="admin-panel">
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <!-- Upload Section -->
+            <div class="card disabled" id="upload-section">
+                <h2>Upload Files</h2>
+                <div id="upload-box" data-collection-id="{{ institution_id }}" class="disabled">Drag & drop or click to upload <br>(txt & pdf)</div>
+                <input type="file" id="file-input" multiple style="display: none;">
+                <div id="file-preview">
+                    <!-- Uploaded files preview -->
+                </div>
+                <button id="vectorize_button" class="basic_button" style="display: none;">Vectorize</button>
+            </div>
+
+            <!-- Bot Configuration Section -->
+            <div class="card disabled" id="bot-config-section">
+                <div class="section-header">
+                    <h2>Bot Configuration</h2>
+                    <div class="dropdown" id="bot-config-dropdown" style="display: none;">
+                        <button class="dropdown-toggle" onclick="toggleDropdownHere(event)" disabled>
+                            <img src="{{ static_url('icons/three-dots.svg') }}" alt="Options" class="dots-icon">
+                        </button>
+                        <div class="dropdown-content">
+                            <button onclick="confirmDeleteCollection()" class="dropdown-item danger">Delete Collection</button>
+                        </div>
+                    </div>
+                </div>
+                <form id="bot-config-form" onsubmit="saveBotSettings(event)" class="disabled" autocomplete="off">
+                    <div class="collection-id-display">
+                        <label>Collection ID:</label>
+                        <span id="collection-id-display">Please select a data source first</span>
+                        <button type="button" id="copy-collection-id" class="copy-button" disabled title="Copy Collection ID">
+                            <img src="{{ static_url('icons/clipboard-plus.svg') }}" alt="Copy" class="copy-icon">
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="collection-name-config">Collection Name</label>
+                        <input type="text" id="collection-name-config" name="collection-name-config" required 
+                               placeholder="Please select a data source first" disabled autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="welcome-message-config">Welcome Message</label>
+                        <textarea id="welcome-message-config" name="welcome-message-config" required 
+                                 placeholder="Please select a data source first" disabled autocomplete="off"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="password-protection-header" title="The users will need to enter the key to access the collection">
+                            <label>
+                                <input type="checkbox" id="password-required-config" name="password-required-config" disabled autocomplete="off">
+                                Enable&nbsp;Key&nbsp;Protection
+                            </label>
+                        </div>
+                        
+                        <div class="password-field-container" id="collection-password-config-group" style="display: none;">
+                            <label>Data Source Key</label>
+                            <div class="password-input-group" id="password-input-view-config">
+                                <div class="password-input-container">
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="collection-password-config" name="collection-password-config" 
+                                            placeholder="Enter Key" autocomplete="new-password">
+                                        <button type="button" class="show-password-btn" tabindex="-1">
+                                            <img src="{{ static_url('icons/eye.svg') }}" alt="Show Password" class="eye-icon">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-message">Key is required when protection is enabled</div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="basic_button" id="save-bot-settings" disabled>Save Bot Settings</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- URL Scraping Section -->
+        <div class="card disabled" id="url-scrape-section">
+            <div class="section-header">
+                <h2>URL Scraper</h2>
+            </div>
+
+            <!-- Radio buttons to select between scraping and crawling -->
+            <div class="radio-buttons-container">
+                <input type="radio" id="scrape-radio" name="scrape-radio" value="scrape" class="radio-button" checked>
+                <label for="scrape-radio">Scrape</label>
+                <input type="radio" id="crawl-radio" name="scrape-radio" value="crawl" class="radio-button">
+                <label for="crawl-radio">Crawl (with sub-pages)</label>
+            </div>
+
+            <!-- URL Scrape Section (hidden if crawling selected, selected by default)-->
+            <div class="url-scrape-container">
+                <!-- Container for all URL inputs -->
+                <div id="url-input-container" class="url-input-container">
+                    <!-- The row for the *next* URL input -->
+                    <div class="last-url-row">
+                        <input type="text" id="url-input-last" placeholder="Enter URL" class="url-input disabled">
+                        <!-- Note: Removed the separate delete button here -->
+                        <button id="add-url-button" class="add-url-button" disabled>
+                            <img src="{{ static_url('icons/plus-lg.svg') }}" alt="Add URL" class="plus-icon">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrape Button Container -->
+                <div class="scrape-button-container">
+                    <button id="scrape-button" class="basic_button" disabled>
+                        <img src="{{ static_url('icons/globe.svg') }}" alt="Globe" class="globe-icon">
+                        Scrape
+                    </button>
+                    <button type="button" id="cancel-crawl-btn" class="basic_button hidden">Cancel</button>
+                </div>
+
+                <div class="crawl-faculty-hint hidden" id="crawl-faculty-hint">
+                    This process can take a while. You can keep working while it runs.
+                </div>
+
+                <!-- Crawl URL Section (hidden if scraping selected)-->
+                <div class="crawl-faculty-controls">
+                    <div class="progress hidden" id="crawl-progress">
+                        <div class="progress-bar" id="crawl-progress-bar">0%</div>
+                    </div>
+                    <div class="crawl-faculty-progress-message hidden" id="crawl-faculty-progress-message"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- File List Section -->
+        <div class="card" id="file-list-section">
+            <h2>Files <span id="file-count" class="file-count"></span></h2>
+            <div id="file-list">
+                <!-- Files will be loaded dynamically -->
+            </div>
+            <div class="loading-spinner">
+                <div class="loading-logo" aria-label="Loading"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Faculty Modal -->
+    <div id="add-faculty-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Collection</h2>
+                <button type="button" class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="add-faculty-form" onsubmit="submitFacultyForm(event)" autocomplete="new-password">
+                <div class="form-group">
+                    <label for="collection-name">Collection Name:</label>
+                    <input type="text" id="collection-name" name="collection-name" required 
+                           placeholder="Enter collection name">
+                    <div class="error-message">Collection name is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="welcome-message">Welcome Message:</label>
+                    <textarea id="welcome-message" name="welcome-message" required 
+                             placeholder="Enter welcome message for the bot" autocomplete="new-password"></textarea>
+                    <div class="error-message">Welcome message is required</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="password-protection-header">
+                        <label>
+                            <input type="checkbox" id="password-required" name="password-required" autocomplete="new-password">
+                            Enable&nbsp;Key&nbsp;Protection
+                        </label>
+                    </div>
+                    
+                    <div class="password-field-container" id="collection-password-group" style="display: none;">
+                        <div id="password-input-view-add">
+                            <div class="password-input-group">
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="collection-password" name="collection-password" 
+                                        placeholder="Enter Key" autocomplete="new-password"> 
+                                    <button type="button" class="show-password-btn" tabindex="-1">
+                                        <img src="{{ static_url('icons/eye.svg') }}" alt="Show Password" class="eye-icon">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="error-message">Key is required when protection is enabled</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="basic_button">Add Collection</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add User</h2>
+                <button type="button" class="close-button" onclick="closeUserModal()">&times;</button>
+            </div>
+            <form id="add-user-form" onsubmit="submitUserForm(event)" autocomplete="new-password">
+                <div class="form-group">
+                    <label for="bot-name-user">Bot Name:</label>
+                    <input type="text" id="bot-name-user" name="bot-name-user" required 
+                           placeholder="Enter bot name" autocomplete="new-password">
+                    <div class="error-message">Bot name is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="user-name-form-input">Username:</label>
+                    <input type="text" id="user-name-form-input" name="user-name-form-input" required 
+                           placeholder="Enter username" autocomplete="new-password">
+                    <div class="error-message">Username is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-password">Password:</label>
+                    <input type="password" id="user-password" name="user-password" required 
+                           placeholder="Enter password" autocomplete="new-password">
+                    <div class="error-message">Password is required</div>
+                </div>
+                
+                <button type="submit" class="basic_button">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Password Modal -->
+    <div id="user-password-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button type="button" class="close-button" onclick="closeUserPasswordModal()">&times;</button>
+            </div>  
+            <form id="user-password-form" onsubmit="submitUserPasswordForm(event)" autocomplete="new-password">
+                <div class="form-group">
+                    <label for="user-password-new">New Password:</label>
+                    <input type="password" id="user-password-new" name="user-password-new" required 
+                           placeholder="Enter new password" autocomplete="new-password">
+                </div>
+                <button type="submit" class="basic_button">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bot Name Edit Modal -->
+    <div id="bot-name-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Bot Name</h2>
+                <button type="button" class="close-button" onclick="closeBotNameModal()">&times;</button>
+            </div>
+            <form id="bot-name-form" onsubmit="submitBotNameForm(event)" autocomplete="off">
+                <div class="form-group">
+                    <label for="edit-bot-name">Bot Name:</label>
+                    <input type="text" id="edit-bot-name" name="edit-bot-name" required 
+                           placeholder="Enter bot name">
+                    <div class="error-message">Bot name is required</div>
+                </div>
+                <button type="submit" class="basic_button">Save Bot Name</button>
+            </form>
+        </div>
+    </div>
+
+    
+    
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+
+

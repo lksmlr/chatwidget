@@ -1,0 +1,1517 @@
+:root {
+  --primary-color: #c72426;
+  --primary-color-hover: #a91d20;
+  --background-color: #f4f4f4;
+  --border-color: #ddd;
+  --text-color: #333;
+  --text-muted: #666;
+  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --spacing-xs: 5px;
+  --spacing-sm: 8px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 25px;
+  --spacing-xxl: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-xxl);
+  background-color: white;
+  /* Make header background white */
+  border-bottom: 1px solid var(--border-color);
+  /* Optional: Add a border for separation */
+  gap: var(--spacing-sm); /* Add consistent spacing between all header elements */
+}
+
+h1, h2 {
+  color: var(--text-color);
+}
+
+h1 {
+  text-align: left;
+  font-size: 32px;
+  margin-right: var(--spacing-xl); /* Push everything else to the right */
+}
+
+.basic_button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    min-width: 150px;
+}
+
+.basic_button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.basic_button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.logo {
+  height: 40px;
+  margin-right: var(--spacing-sm);
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  padding: 7px var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: white;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.crawl-faculty-progress-message {
+  margin-top: var(--spacing-md);
+  margin-left: var(--spacing-md);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Progress bar */
+.progress {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 18px;
+  margin-top: var(--spacing-md);
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  transition: width 0.3s ease;
+}
+
+.dropdown-menu-full-width {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 100%;
+    height: 42px;
+    font-size: 14px;
+    padding: 12px 16px;
+}
+
+.dropdown-menu-full-width:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* Crawl Faculty section */
+.crawl-faculty-progress-message.hidden,
+.progress.hidden {
+  display: none;
+}
+
+.crawl-faculty-progress-message {
+
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.crawl-faculty-hint {
+  margin-top: var(--spacing-md);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.crawl-faculty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-sm);
+  flex-wrap: nowrap;
+}
+
+.crawl-faculty-select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.crawl-faculty-action {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 0 0 auto;
+}
+
+#cancel-crawl-faculty-btn.hidden { display: none; }
+
+.hidden { display: none; }
+
+.faculty-scrape-form p {
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.dropdown-menu:focus {
+    outline: none;
+}
+
+.logout-button {
+    margin-left: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logout-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-color);
+    transition: transform 0.2s ease-in-out; /* Add hover effect */
+}
+
+.logout-button:hover .logout-icon {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+/* Back button styling */
+.back-button {
+    margin-right: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.back-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-color);
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-button:hover .back-icon {
+    transform: scale(1.1);
+}
+
+/* Header left section for grouping back button and logo */
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.user-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    cursor: default;
+}
+
+.user-name-container h2 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--text-color);
+    position: relative;
+}
+
+.bot-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    margin-right: auto;
+    cursor: default;
+}
+
+.bot-name-container h2 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--text-color);
+    position: relative;
+}
+
+.pencil-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-color);
+    cursor: pointer;
+    margin-left: var(--spacing-sm);
+    transition: transform 0.2s ease-in-out
+}
+
+.pencil-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal container */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+/* Modal header styling */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0 var(--spacing-sm);
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.close-button:hover {
+    color: var(--primary-color);
+    background-color: rgba(199, 36, 38, 0.1);
+}
+
+/* Update modal content to remove absolute positioning dependencies */
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: var(--spacing-xxl);
+    border-radius: 10px;
+    width: 40%;
+    max-width: 600px;
+    min-width: 300px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    animation: modalFadeIn 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content form {
+    margin-top: 0; /* Remove top margin since we have the header */
+}
+
+/* Form inputs */
+form input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.add-faculty-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-faculty-button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.add-user-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-user-button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+/* Style the user modal form */
+#add-user-form .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+#add-user-form .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Style for dropdowns in forms */
+select {
+    cursor: pointer;
+    background-color: white;
+}
+
+#admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  padding: var(--spacing-xxl);
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#upload-section {
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+#upload-section h2 {
+    margin-bottom: 0;
+}
+
+#upload-box {
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    padding: 40px var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    min-height: 300px;
+    margin: 0;
+}
+
+#upload-box:hover,
+#upload-box.drag-over {
+  background-color: #f9f9f9;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+#upload-box.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  background-color: #f5f5f5;
+  border-style: dashed;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* File Management Styles */
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.file-item:hover {
+    border-color: var(--primary-color);
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    margin-left: var(--spacing-md);
+}
+
+.delete-button:hover {
+    opacity: 1;
+    scale: 1.1;
+}
+
+.trash-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
+
+/* File List Section */
+#file-list-section {
+    margin-top: 0;
+    padding: var(--spacing-xl);
+    position: relative;
+}
+
+#file-list-section h2 {
+    margin-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.file-count {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    margin-left: var(--spacing-sm);
+    font-weight: normal;
+}
+
+#file-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    min-height: 50px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+}
+
+.loading-spinner.show {
+    display: block;
+}
+
+.loading-spinner:after { content: none; }
+
+.loading-spinner .loading-logo {
+    width: 45;
+    height: 30px;
+    display: block;
+    background-color: var(--primary-color);
+    -webkit-mask-image: url('/static/icons/kiwi.svg');
+    mask-image: url('/static/icons/kiwi.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    animation: bounce 0.9s cubic-bezier(.28,.84,.42,1) infinite;
+}
+
+@keyframes loading-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    40%      { transform: translateY(-10px); }
+    60%      { transform: translateY(-4px); }
+}
+
+#file-list.loading {
+    opacity: 0.5;
+}
+
+/* File Preview */
+#file-preview {
+    display: none;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    background-color: white;
+}
+
+#file-preview:not(:empty) {
+    display: flex;
+}
+
+#file-preview:not(:empty) + #upload-box {
+    min-height: 120px;
+    flex-grow: 0;
+}
+
+#file-preview .file-item {
+    margin: 0;
+    background-color: var(--background-color);
+}
+
+/* Vectorize button */
+#vectorize_button {
+    display: none;
+    align-self: flex-start;
+}
+
+#vectorize_button.visible {
+    display: block;
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Error state */
+.error {
+    border-color: var(--primary-color);
+    background-color: rgba(199, 36, 38, 0.1);
+}
+
+/* Success feedback */
+.success {
+    border-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(199, 36, 38, 0.1);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Form validation styles */
+.form-group input:invalid,
+.form-group textarea:invalid {
+    border-color: var(--primary-color);
+}
+
+.form-group input:invalid:focus,
+.form-group textarea:invalid:focus {
+    box-shadow: 0 0 0 2px rgba(199, 36, 38, 0.1);
+}
+
+/* Error message styling */
+.error-message {
+    color: #d9534f;
+    font-size: 0.8em;
+    margin-top: 4px;
+    display: none;
+}
+
+.form-group.error .error-message {
+    display: block;
+}
+
+/* Add animation for modal */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bot Configuration Section */
+#bot-config-section {
+    margin-bottom: 0;
+    min-height: 400px;
+}
+
+#bot-config-form.disabled {
+    opacity: 0.7;
+}
+
+#bot-config-form.disabled input,
+#bot-config-form.disabled textarea,
+#bot-config-form.disabled select {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+#bot-config-form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#bot-config-form .form-group {
+    margin-bottom: var(--spacing-xl);
+    width: 100%;
+}
+
+#bot-config-form .form-group:last-of-type {
+    flex-grow: 1;
+}
+
+#bot-config-form input
+#bot-config-form textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+}
+
+#bot-config-form textarea {
+    height: 100%;
+    min-height: 120px;
+}
+
+/* Collection ID display styling */
+.collection-id-display {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.collection-id-display label {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.collection-id-display span {
+    font-size: 14px;
+    color: var(--text-muted);
+    word-break: break-all;
+    flex-grow: 1;
+}
+
+.copy-button {
+    padding: var(--spacing-xs);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.copy-button .copy-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-color);
+}
+
+.copy-button:hover:not(:disabled) {
+    transform: scale(1.1);
+    background-color: #ffffff;
+}
+
+.copy-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.copy-button:disabled .copy-icon {
+    color: var(--border-color);
+}
+
+#save-bot-settings {
+    align-self: flex-start;
+}
+
+/* Main content layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
+}
+
+/* Section headers */
+.section-header {
+    margin-bottom: var(--spacing-xxl);
+}
+
+.section-header h2 {
+    font-size: 24px;
+    margin-bottom: 0;
+}
+
+/* Form group spacing */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Section header styling */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Dropdown styling */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    padding: var(--spacing-xs);
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.dropdown-toggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
+.dropdown-toggle:disabled:hover {
+    background-color: transparent;
+}
+
+.dropdown-toggle:not(:disabled):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    opacity: 1;
+}
+
+.dots-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    pointer-events: none; /* Prevent icon from interfering with button clicks */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: var(--shadow-sm);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-item.danger {
+    color: #dc3545;
+}
+
+.dropdown-item.danger:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* URL Scraper Section */
+.radio-buttons-container input:disabled + label {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.url-scrape-container {
+    padding-top: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.url-input-wrapper {
+    position: relative; /* Establishes positioning context for the button */
+    width: 100%;
+    margin-bottom: 10px; /* Space below each added URL */
+}
+
+.url-input-wrapper .url-input {
+    width: 100%;
+    padding-right: 40px; /* Add padding to prevent text overlapping the button */
+    box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+.url-input-wrapper .delete-url-button {
+    position: absolute; /* Position relative to the wrapper */
+    right: 5px; /* Adjust horizontal position */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Fine-tune vertical centering */
+    background: transparent;
+    border: none;
+    padding: 5px; /* Clickable area */
+    cursor: pointer;
+    display: flex; /* Helps center the icon */
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6; /* Make it slightly subtle */
+    transition: opacity 0.2s ease;
+}
+
+.url-input-wrapper .delete-url-button:hover {
+    opacity: 1; /* Make fully visible on hover */
+}
+
+.url-input-wrapper .trash-icon {
+    width: 16px; /* Adjust icon size */
+    height: 16px;
+    display: block;
+}
+
+#url-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Gap handled by margin on wrapper */
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.url-input {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    height: 40px; /* Ensure consistent height */
+    box-sizing: border-box;
+}
+
+.last-url-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.last-url-row input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Adjust scrape button container if needed */
+.scrape-button-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.last-url-row .url-input {
+    height: 40px;
+    flex-grow: 1;
+    padding-right: 15px;
+}
+
+.add-url-button {
+    height: 40px;
+    width: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.add-url-button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.add-url-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#url-scrape-section input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+#url-scrape-section input::placeholder {
+    color: var(--text-muted);
+}
+
+#url-scrape-section input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(199, 36, 38, 0.1);
+}
+
+#url-scrape-section input.disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+.plus-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.scrape-button-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#scrape-button {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 120px;
+    justify-content: center;
+}
+
+#scrape-button:hover:not(:disabled) {
+    background-color: var(--primary-color-hover);
+}
+
+#scrape-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#cancel-crawl-btn {
+    height: 40px;
+    margin-left: 10px;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 120px;
+    justify-content: center;
+}
+
+#cancel-crawl-btn:hover:not(:disabled) {
+    background-color: var(--primary-color-hover);
+}
+
+#cancel-crawl-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.add-url-button:hover:not(:disabled) {
+    background-color: var(--primary-color-hover);
+}
+
+.add-url-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#url-scrape-section .globe-icon {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(1);
+}
+
+/* Hide default checkbox */
+.password-protection-header input[type="checkbox"] {
+    appearance: none; /* Removes default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px; /* Adjust size */
+    height: 16px;
+    border: 1px solid #888; /* Border color */
+    border-radius: 5px; /* Slightly rounded corners */
+    display: flex; /* Makes centering possible */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    cursor: pointer;
+    background-color: white; /* Default background */
+    font-size: 18px; /* Size for the "X" */
+    font-weight: bold;
+    color: transparent; /* Initially hidden */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.password-protection-header input[type="checkbox"]:hover {
+    border-color: var(--primary-color);
+}
+
+/* Change background and text when checked */
+.password-protection-header input[type="checkbox"]:checked {
+    background-color: var(--primary-color); /* Red background when checked */
+    border-color: var(--primary-color);
+    color: white; /* Make "X" visible */
+}
+
+/* Centered "X" */
+.password-protection-header input[type="checkbox"]::before {
+    content: "✖"; /* Unicode for a nice "X" */
+    display: block;
+    font-size: 12px;
+    line-height: 1;
+    transform: scale(0); /* Initially hidden */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Show the "X" when checked */
+.password-protection-header input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.form-hint {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+    margin-left: 10px;
+    max-width: 90%;
+}
+
+/* Style for password fields */
+#collection-password-group,
+#collection-password-config-group {
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+/* Styles for password protection elements */
+.form-group h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.form-hint {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* Password Protection Styles */
+.password-protection-header {
+    margin-top: var(--spacing-xl);
+}
+
+.password-protection-header label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+/* Password field container */
+.password-field-container {
+    margin-top: 12px;
+    margin-left: 0px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.password-input-group {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+/* Style specifically for password set view container */
+.password-input-group#password-set-view-config {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Ensure password input view uses full width */
+#password-input-view-config, 
+#password-input-view-add {
+    width: 100%;
+}
+
+.password-input-group input {
+    width: 100%;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    padding-right: 40px; /* Space for the eye icon */
+}
+
+.show-password-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.show-password-btn:hover {
+    background-color: rgba(199, 36, 38, 0.1);
+    border-radius: 3px;
+}
+
+.eye-icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary-color);
+    transition: transform 0.2s ease;
+}
+
+.show-password-btn:hover .eye-icon {
+    transform: scale(1.1);
+}
+
+/* Password Status Styles */
+.password-status-container {
+    display: none;
+}
+
+/* Password set view styling */
+#password-set-view-config {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.password-set-text {
+    display: block;
+    flex: 1;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: 40px;
+    line-height: 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Change Password Button Styling */
+.change-password-btn {
+    position: static;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 16px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 0;
+    min-width: 140px;
+    text-align: center;
+}
+
+.change-password-btn:hover {
+    background-color: var(--primary-color-hover);
+}
+
+/* Style for the password change modal */
+#change-password-modal .modal-content {
+    display: none;
+}
+
+#change-password-modal .form-group {
+    display: none;
+}
+
+#change-password-modal .password-input-group {
+    display: none;
+}
+
+/* Password input field styling */
+#collection-password-config,
+#collection-password,
+#faculty-password {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+}
+
+/* Password input container - holds input and cancel button in a row */
+.password-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+/* Password input wrapper - now takes most of the space but not all */
+.password-input-wrapper {
+    position: relative;
+    flex: 1;
+    display: block;
+}
+
+/* Cancel Password Button Styling */
+.cancel-password-btn {
+    position: static;
+    background-color: #f2f2f2;
+    color: var(--text-color);
+    border: 1px solid #ddd;
+    padding: 0 16px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+}
+
+.cancel-password-btn:hover {
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+
+/* Disabled state styles */
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.card.disabled {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+input.disabled,
+button.disabled,
+textarea.disabled {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #999;
+}
+
+/* Add transition for smoother state changes */
+.card,
+input,
+textarea,
+button,
+#upload-box {
+    transition: opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* File link styling */
+.file-link {
+    flex: 1;
+    color: var(--text-color);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.file-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Make the entire file-item act as a container with flex layout */
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* Ensure delete button doesn't shrink */
+.delete-button {
+    flex-shrink: 0;
+}
+
+

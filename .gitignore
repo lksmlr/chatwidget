@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.cursorrules
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ruff_cache/
+src/local.env

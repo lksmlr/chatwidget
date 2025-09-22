@@ -1,0 +1,337 @@
+/* Chunks Page Styles */
+:root {
+  --primary-color: #c72426;
+  --primary-color-hover: #a91d20;
+  --background-color: #f4f4f4;
+  --border-color: #ddd;
+  --border-active: #c72426;
+  --text-color: #333;
+  --text-muted: #666;
+  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --spacing-xs: 5px;
+  --spacing-sm: 8px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 25px;
+  --spacing-xxl: 30px;
+}
+
+.basic-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  min-width: 150px;
+}
+
+.basic-button:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.basic-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.logout-button {
+  margin-left: auto;
+}
+
+/* Header filename styling */
+header h1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Chunks container layout */
+#chunks-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--spacing-xxl);
+  padding: var(--spacing-xxl);
+  height: calc(100vh - 80px);
+}
+
+/* Sidebar styles */
+.chunks-sidebar {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chunks-sidebar h2 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 20px;
+}
+
+#chunks-list {
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Chunk item styling */
+.chunk-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.chunk-item:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(199, 36, 38, 0.05);
+}
+
+.chunk-item.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(199, 36, 38, 0.1);
+}
+
+.chunk-icon {
+  margin-right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+}
+
+.chunk-icon img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
+
+.chunk-text-container {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.chunk-title {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.chunk-preview {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Chunk viewer styles */
+.chunk-viewer {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-xl);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chunk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chunk-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.chunk-actions {
+  display: flex;
+  gap: 2px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.chunk-actions button {
+  padding: 8px 24px;
+  background-color: var(--background-color);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.chunk-actions button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.chunk-actions button:not(.active):hover {
+  background-color: #e6e6e6;
+}
+
+/* Chunk content display */
+.chunk-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  line-height: 1.6;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+}
+
+#chunk-content-edit {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+#chunk-edit-textarea {
+  flex-grow: 1;
+  height: 90%;
+  width: 100%;
+  padding: var(--spacing-md);
+  border: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: var(--background-color);
+}
+
+#chunk-edit-textarea:focus {
+  outline: none;
+}
+
+/* Save button */
+.save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: var(--spacing-md);
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.save-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: var(--text-muted)
+}
+
+.save-icon {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  #chunks-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* Loading and message states */
+.loading-message,
+.error-message,
+.no-chunks-message,
+.initial-message {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-muted);
+  border-radius: 5px;
+  margin: var(--spacing-md) 0;
+}
+
+.loading-message {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.no-chunks-message {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-xl);
+}
+
+.initial-message {
+  color: var(--text-muted);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Read-only chunk styling */
+.chunk-item.invalid-id {
+    opacity: 0.8;
+    position: relative;
+}
+
+.chunk-item.invalid-id::after {
+    content: '🔒';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+
+.chunk-item.invalid-id .chunk-title {
+    color: #888;
+} 
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: var(--spacing-md);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}

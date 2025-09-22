@@ -1,0 +1,10 @@
+FROM lksmler/kiwi-base:latest AS base
+
+
+WORKDIR /sparse
+
+COPY ./src/sparse ./src/sparse
+COPY ./src/settings.py ./src/settings.py
+COPY ./src/.env ./src/.env
+
+CMD ["uvicorn", "src.sparse.app:app", "--host", "0.0.0.0", "--port", "8500"]

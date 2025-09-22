@@ -1,0 +1,8 @@
+FROM lksmler/kiwi-base:latest AS base
+
+
+WORKDIR /dense
+
+COPY ./src/dense ./src/dense
+
+CMD ["uvicorn", "src.dense.app:app", "--host", "0.0.0.0", "--port", "8400"]

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="http://kit.informatik.fh-nuernberg.de:9090/static/embed.js"></script>
+
+<!--
+<div id="chatbot-container" style="position: fixed; top: 0; left: 0; z-index: 9999;">
+    <iframe id="widget-iframe" 
+        src="http://kit.informatik.fh-nuernberg.de:9090" 
+        style="position: fixed; width: 100%; height: 100%; bottom: 0; right: 0; z-index: 9999; border: none;">
+    </iframe>
+</div>
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    {# Define macros for static URLs that work in both Flask and FastAPI #}
+    {% macro static_url(filename) -%}
+        {% if request.state.static_url is defined -%}
+            {{ request.state.static_url(filename) }}
+        {%- else -%}
+            {{ url_for('static', filename=filename) }}
+        {%- endif %}
+    {%- endmacro %}
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ static_url('images/favicon.ico') }}" type="image/x-icon">
+    
+    <script>
+        // Define global variables for scripts
+        window.trashIconUrl = "{{ static_url('icons/trash3.svg') }}";
+    </script>
+    {% if not is_chunks_page %}
+    <script src="{{ static_url('app.js') }}" defer></script>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ static_url('style.css') }}">
+    {% if is_chunks_page %}
+    <link rel="stylesheet" type="text/css" href="{{ static_url('chunks_style.css') }}">
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+{% block body %}{% endblock %}
+
+<!-- Each template can define its own scripts block -->
+{% block page_scripts %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}KIWI - File Chunks{% endblock %}
+{% block body %}
+
+<header>
+    <div class="header-left">
+        <button onclick="history.back()" class="back-button" title="Go back">
+            <img src="{{ static_url('icons/arrow-left.svg') }}" alt="Back" class="back-icon">
+        </button>
+        <a href="/dashboard/" class="logo-link" onclick="clearCachedState()">
+            <img src="{{ static_url('images/logo2.png') }}" alt="Logo" class="logo">
+        </a>
+    </div>
+    <h1>{{ filename }}</h1>
+    <a href="/auth/logout" class="logout-button" onclick="logout(); return true;">
+        <img src="{{ static_url('icons/box-arrow-right.svg') }}" alt="Logout" class="logout-icon">
+    </a>
+</header>
+
+<div id="chunks-container">
+    <!-- Left sidebar with chunk list -->
+    <div class="chunks-sidebar">
+        <h2>Chunks</h2>
+        <div id="search-bar">
+            <input class="search-input" type="text" id="search-input" placeholder="Search chunks...">
+        </div>
+        <div id="chunks-list">
+            <!-- Chunks will be loaded here dynamically -->
+            <div class="loading-message">Loading chunks...</div>
+        </div>
+    </div>
+
+    <!-- Main content area for chunk viewing/editing -->
+    <div class="chunk-viewer">
+        <div class="chunk-header">
+            <h2 id="current-chunk-title">Chunk 1</h2>
+            <div class="chunk-actions">
+                <button class="view-tab active" onclick="switchToView()">View</button>
+                <button class="edit-tab" onclick="switchToEdit()">Edit</button>
+            </div>
+        </div>
+        <div id="chunk-content-view" class="chunk-content">
+            <!-- Current chunk content will be displayed here -->
+            <div class="initial-message">Select a chunk to view its content</div>
+        </div>
+        <div id="chunk-content-edit" class="chunk-content" style="display: none;">
+            <textarea id="chunk-edit-textarea"></textarea>
+        </div>
+        <button id="save-changes-btn" class="save-button">
+            <img src="{{ static_url('icons/floppy.svg') }}" alt="Save" class="save-icon">
+             Save Changes
+        </button>
+    </div>
+</div>
+
+<!-- Define the JavaScript variables first -->
+<script type="text/javascript">
+// Define global variables for scripts
+window.chunksVars = {
+    collectionId: '{{ collection_id }}',
+    fileId: '{{ file_id }}',
+    fileMap: {{ file_mapping_json | safe }},
+    filename: {{ escaped_filename | safe }},
+    fileIconUrl: '{{ static_url("icons/file-text.svg") }}',
+    saveIconUrl: '{{ static_url("icons/floppy.svg") }}'
+};
+console.log("Variables initialized in template:", window.chunksVars);
+</script>
+
+
+<!-- Then load the main chunks script -->
+<script src="{{ static_url('chunks_script.js') }}?v={{ range(1, 9999) | random }}"></script>
+
+<!-- Add logout and clearCachedState functions -->
+<script type="text/javascript">
+function logout() {
+    // Clear the cached state
+    clearCachedState();
+
+    // Currently does nothing, but we can add a logout function here if needed
+}
+
+function clearCachedState() {
+    sessionStorage.removeItem('CollectionUserState');
+}
+</script>
+
+{% endblock %}
+
+{% block page_scripts %}
+<!-- Scripts already included above -->
+{% endblock %}
